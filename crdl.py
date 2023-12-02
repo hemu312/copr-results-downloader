@@ -26,7 +26,7 @@ if __name__ == '__main__' :
     # Download result file
     resultsFile = "results.json"
     full_url = repo_url+'/'+args.build_id+'-'+args.pkg_name+'/'+resultsFile
-    if subprocess.run(["wget", full_url]).returncode != 0 :
+    if subprocess.run(["wget", "--continue", full_url]).returncode != 0 :
                     raise SystemExit('Unable to download results.json file')
     
     # Download results
@@ -36,5 +36,5 @@ if __name__ == '__main__' :
             if not "debuginfo" in pkg['name'] :
                 if pkg['arch'] != 'src' :
                     full_url = repo_url+'/'+args.build_id+'-'+args.pkg_name+'/'+pkg['name']+'-'+pkg['version']+'-'+pkg['release']+'.'+pkg['arch']+'.'+'rpm'
-                    if subprocess.run(["wget", full_url]).returncode != 0 :
+                    if subprocess.run(["wget", "--continue", full_url]).returncode != 0 :
                         break
